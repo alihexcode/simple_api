@@ -1,0 +1,57 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.0.0
+  UseCache: true
+  NewCops: enable
+  Exclude:
+    - 'node_modules/**/*'
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'vendor/bundle/**/*'
+    - 'lib/tasks/*.rake'
+    - 'config/**/*'
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Rails/EnumHash:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Enabled: false
+
+Lint/EmptyClass:
+  Enabled: false
+
+Lint/EmptyFile:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+RSpec/VariableName:
+  Enabled: false

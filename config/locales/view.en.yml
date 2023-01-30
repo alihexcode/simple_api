@@ -1,0 +1,34 @@
+en:
+  common:
+    project_name: recipes
+    title: recipes
+    description: 
+    authentication_error: Unauthorized
+    file_exists_label: File already exists
+    admin_dashboard_label: Admin Dashboard
+    sign_out_label: Sign out
+    delete_label: Delete
+    mobile.wrong_credentials: Wrong credentials
+    mobile.user_not_registered: User is not registered
+  dashboard_mailer:
+    users:
+    recipes:
+    categories:
+    ingredients:
+    dashboard_index_summary:
+      csv_attached_label: CSVファイルが添付されていますので、そちらをご確認下さい。
+  users:
+    sessions:
+      new:
+        sign_in_label: 'Sign in'
+        sign_in_with_provider: 'Sign in by %{provider}'
+        forgot_password_label: 'Forgot your password'
+    passwords:
+      new:
+        reset_password_label: 'Reset your password'
+        submit_label: 'Submit'
+        back_to_sign_in_label: 'Back to Sign in'
+      edit:
+        change_password_label: 'Change your password'
+        sign_in_label: 'Sign in'
+  dashboard:

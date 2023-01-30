@@ -1,0 +1,1096 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/categories":
+    get:
+      summary: List Categories
+      tags:
+      - Categories
+      parameters:
+      - name: page
+        in: query
+        example: 1
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        example: 10
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          headers:
+            Link:
+              type: string
+              description: Link pagination
+            X-Page-Count:
+              type: integer
+              description: Total page count
+            X-Current-Page:
+              type: integer
+              description: Current page number
+            X-Page-Size:
+              type: integer
+              description: Item count in the current page
+            X-Total:
+              type: integer
+              description: Total number of items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      "$ref": "#/components/category"
+    post:
+      summary: Create a new category
+      tags:
+      - Categories
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: category created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    "$ref": "#/components/category"
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: object
+                  properties:
+                    description:
+                      type: string
+                      example: Description
+  "/api/categories/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show category
+      tags:
+      - Categories
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    "$ref": "#/components/category"
+        '404':
+          description: record not found
+    put:
+      summary: Updates a category
+      tags:
+      - Categories
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: category updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    "$ref": "#/components/category"
+        '401':
+          description: Unauthorized
+        '404':
+          description: record not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: object
+                  properties:
+                    description:
+                      type: string
+                      example: Description
+    delete:
+      summary: Deletes a category
+      tags:
+      - Categories
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: category deleted
+        '404':
+          description: category not found
+  "/api/ingredients":
+    get:
+      summary: List Ingredients
+      tags:
+      - Ingredients
+      parameters:
+      - name: page
+        in: query
+        example: 1
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        example: 10
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          headers:
+            Link:
+              type: string
+              description: Link pagination
+            X-Page-Count:
+              type: integer
+              description: Total page count
+            X-Current-Page:
+              type: integer
+              description: Current page number
+            X-Page-Size:
+              type: integer
+              description: Item count in the current page
+            X-Total:
+              type: integer
+              description: Total number of items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ingredients:
+                    type: array
+                    items:
+                      "$ref": "#/components/ingredient"
+    post:
+      summary: Create a new ingredient
+      tags:
+      - Ingredients
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: ingredient created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ingredient:
+                    "$ref": "#/components/ingredient"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ingredient:
+                  type: object
+                  properties:
+                    unit:
+                      type: string
+                      example: cup
+                    amount:
+                      type: integer
+                      example: 100
+                    recipe_id:
+                      type: integer
+                      example: 1
+                  required:
+                  - unit
+                  - amount
+                  - recipe_id
+  "/api/ingredients/{id}":
+    get:
+      summary: Show ingredient
+      tags:
+      - Ingredients
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ingredient:
+                    "$ref": "#/components/ingredient"
+        '404':
+          description: record not found
+    put:
+      summary: Updates a ingredient
+      tags:
+      - Ingredients
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ingredient updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ingredient:
+                    "$ref": "#/components/ingredient"
+        '401':
+          description: Unauthorized
+        '404':
+          description: record not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ingredient:
+                  type: object
+                  properties:
+                    unit:
+                      type: string
+                      example: cup
+                    amount:
+                      type: integer
+                      example: 100
+                    recipe_id:
+                      type: integer
+                      example: 1
+                  required:
+                  - unit
+                  - amount
+                  - recipe_id
+    delete:
+      summary: Deletes an ingredient
+      tags:
+      - Ingredients
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: ingredient deleted
+        '404':
+          description: ingredient not found
+  "/api/ingredients/{id}/convert":
+    put:
+      summary: Convert ingredient unit
+      tags:
+      - Ingredients
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: unit converted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ingredient:
+                    "$ref": "#/components/ingredient"
+        '404':
+          description: ingredient not found
+        '422':
+          description: invalid unit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                to_unit:
+                  type: string
+                  example: teaspoons
+              required:
+              - to_unit
+  "/api/recipe_reviews/{id}":
+    get:
+      summary: Show recipe review
+      tags:
+      - Recipe Reviews
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipe_review:
+                    "$ref": "#/components/recipe_review"
+        '404':
+          description: record not found
+    put:
+      summary: Update a recipe review
+      tags:
+      - Recipe Reviews
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: recipe review updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipe_review:
+                    "$ref": "#/components/recipe_review"
+        '422':
+          description: invalid request
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipe_review:
+                  type: object
+                  properties:
+                    review:
+                      type: string
+                      example: Foo
+                    rating:
+                      type: integer
+                      example: 5
+                    recipe_id:
+                      type: integer
+                      example: 1
+                  required:
+                  - review
+                  - rating
+                  - recipe_id
+    delete:
+      summary: Deletes an recipe review
+      tags:
+      - Recipe Reviews
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: recipe review deleted
+        '404':
+          description: recipe review not found
+        '401':
+          description: Unauthorized
+  "/api/recipe_reviews":
+    post:
+      summary: Create a new recipe review
+      tags:
+      - Recipe Reviews
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: recipe review created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipe_review:
+                    "$ref": "#/components/recipe_review"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipe_review:
+                  type: object
+                  properties:
+                    review:
+                      type: string
+                      example: Foo
+                    rating:
+                      type: integer
+                      example: 5
+                    recipe_id:
+                      type: integer
+                      example: 1
+                  required:
+                  - review
+                  - rating
+                  - recipe_id
+  "/api/recipes":
+    get:
+      summary: List Recipes
+      tags:
+      - Recipes
+      parameters:
+      - name: page
+        in: query
+        example: 1
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        example: 10
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          headers:
+            Link:
+              type: string
+              description: Link pagination
+            X-Page-Count:
+              type: integer
+              description: Total page count
+            X-Current-Page:
+              type: integer
+              description: Current page number
+            X-Page-Size:
+              type: integer
+              description: Item count in the current page
+            X-Total:
+              type: integer
+              description: Total number of items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipes:
+                    type: array
+                    items:
+                      "$ref": "#/components/recipe"
+    post:
+      summary: Create a new Recipe
+      tags:
+      - Recipes
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Recipe created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipe:
+                    "$ref": "#/components/recipe"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipe:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: Chocolate Chip Cookies
+                    descriptions:
+                      type: string
+                      example: These classic cookies are perfect for any occasion
+                    time:
+                      type: integer
+                      example: 30
+                    difficulty:
+                      type: string
+                      example: easy
+                    category_id:
+                      type: integer
+                      example: 2
+                  required:
+                  - title
+                  - descriptions
+                  - time
+                  - difficulty
+                  - category_id
+  "/api/recipes/{id}":
+    get:
+      summary: Show a Recipe
+      tags:
+      - Recipes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipe:
+                    "$ref": "#/components/recipe"
+        '404':
+          description: record not found
+    put:
+      summary: Update a Recipe
+      tags:
+      - Recipes
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Recipe updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipe:
+                    "$ref": "#/components/recipe"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipe:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: Chocolate Chip Cookies
+                    descriptions:
+                      type: string
+                      example: These classic cookies are perfect for any occasion
+                    time:
+                      type: integer
+                      example: 30
+                    difficulty:
+                      type: string
+                      example: easy
+                    category_id:
+                      type: integer
+                      example: 2
+                  required:
+                  - title
+                  - descriptions
+                  - time
+                  - difficulty
+                  - category_id
+    delete:
+      summary: Deletes an Recipe
+      tags:
+      - Recipes
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Recipe deleted
+        '404':
+          description: Recipe not found
+  "/api/recipes/filter":
+    get:
+      summary: Filter Recipes
+      tags:
+      - Recipes
+      parameters:
+      - name: title
+        in: query
+        example: foo
+        description: A string to filter the recipes by title
+        schema:
+          type: string
+      - name: time_from
+        in: query
+        example: 60
+        description: The start time (in minutes) to filter the recipes by time range.
+        schema:
+          type: integer
+      - name: time_to
+        in: query
+        example: 145
+        description: The end time (in minutes) to filter the recipes by time range.
+        schema:
+          type: integer
+      - name: difficulty
+        in: query
+        example: easy
+        description: 'A string to filter the recipes by difficulty. Accepts one of
+          the following values: ''easy'', ''normal'', or ''challenging''.'
+        schema:
+          type: string
+      - name: page
+        in: query
+        example: 1
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        example: 10
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          headers:
+            Link:
+              type: string
+              description: Link pagination
+            X-Page-Count:
+              type: integer
+              description: Total page count
+            X-Current-Page:
+              type: integer
+              description: Current page number
+            X-Page-Size:
+              type: integer
+              description: Item count in the current page
+            X-Total:
+              type: integer
+              description: Total number of items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipes:
+                    type: array
+                    items:
+                      "$ref": "#/components/recipe"
+        '422':
+          description: invalid range time
+  "/api/users_passwords":
+    put:
+      summary: Change password
+      tags:
+      - Change password
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Password updated
+        '422':
+          description: Cannot update password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                new_password:
+                  type: string
+                  example: dummy_new_password
+              required:
+              - dummy_new_password
+  "/api/users_registrations":
+    post:
+      summary: Sign up by email
+      tags:
+      - Sign up by email
+      parameters: []
+      responses:
+        '200':
+          description: user created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  user:
+                    "$ref": "#/components/user"
+        '422':
+          description: Cannot register
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Failed to sign up, Invalid email format
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: user@test.com
+                    password:
+                      type: string
+                      example: dummy_password
+                    password_confirmation:
+                      type: string
+                      example: dummy_password
+  "/api/users_reset_password_requests":
+    post:
+      summary: Reset password request
+      tags:
+      - Reset password request
+      parameters: []
+      responses:
+        '200':
+          description: request sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: 'true'
+        '422':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: 'false'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user@test.com
+  "/api/users_sessions":
+    post:
+      summary: Sign in by email
+      tags:
+      - Sign in by email
+      parameters: []
+      responses:
+        '200':
+          description: user created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  user:
+                    "$ref": "#/components/user"
+                  access_token:
+                    type: string
+                    example: eyJra.SWtmUm7MqCPZDFaNacCfj7fe3MdEgRLHxD5kPCPFr1ZtVtCfJN279KG-8B0ehKIRHIAkGry4-452JWcp6FntJQ
+        '422':
+          description: Invalid application uid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid application uid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user@test.com
+                password:
+                  type: string
+                  example: dummy_password
+                uid:
+                  type: string
+                  example: application_uid_key
+  "/api/users_verify_reset_password_requests":
+    post:
+      summary: Verify reset password request
+      tags:
+      - Verify reset password request
+      parameters: []
+      responses:
+        '200':
+          description: request sent
+        '422':
+          description: failed to change password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reset_password_token:
+                  type: string
+                  example: dummy_reset_password_token
+                password:
+                  type: string
+                  example: dummy_password
+                password_confirmation:
+                  type: string
+                  example: dummy_password
+servers:
+- url: "{defaultHost}"
+  variables:
+    defaultHost:
+      default: ''
+components:
+  securitySchemes:
+    bearerAuth:
+      name: Authorization
+      type: http
+      description: JWT Authorization header using the Bearer scheme.
+      scheme: bearer
+      bearerFormat: JWT
+  category:
+    type: object
+    required:
+    - id
+    - description
+    properties:
+      id:
+        type: integer
+        example: 1
+      created_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+      updated_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+      description:
+        type: string
+        example: This category has the most delicious recipes!
+      recipes:
+        type: array
+        items:
+          "$ref": "#/components/recipe"
+  recipe:
+    type: object
+    required:
+    - id
+    - title
+    - descriptions
+    - time_in_word
+    - difficulty
+    properties:
+      id:
+        type: integer
+        example: 2
+      title:
+        type: string
+        example: Delicious Recipe
+      descriptions:
+        type: string
+        example: This recipe is so delicious!
+      time_in_word:
+        type: string
+        example: 45 minutes
+      difficulty:
+        type: string
+        example: easy
+      ingredients:
+        type: array
+        items:
+          "$ref": "#/components/ingredient"
+      recipe_reviews:
+        type: array
+        items:
+          "$ref": "#/components/recipe_review"
+      created_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+      updated_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+  ingredient:
+    type: object
+    required:
+    - id
+    - unit
+    - amount
+    properties:
+      id:
+        type: integer
+        example: 2
+      unit:
+        type: string
+        example: cup
+      recipe_id:
+        type: integer
+        example: 1
+      amount:
+        type: number
+        example: 30
+      created_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+      updated_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+  recipe_review:
+    type: object
+    required:
+    - id
+    - review
+    - rating
+    properties:
+      id:
+        type: integer
+        example: 2
+      review:
+        type: string
+        example: Good recipe
+      rating:
+        type: number
+        example: 5
+      user:
+        "$ref": "#/components/user"
+      created_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+      updated_at:
+        type: string
+        format: datetime
+        example: '2023-01-09T20:49:24.426+07:00'
+  user:
+    type: object
+    required:
+    - id
+    - email
+    properties:
+      id:
+        type: integer
+        example: 2
+      email:
+        type: string
+        example: example@mail.com
+      created_at:
+        type: string
+        format: datetime
+        example: '2023-01-23T00:07:12.777+07:00'
+      updated_at:
+        type: string
+        format: datetime
+        example: '2023-01-23T00:07:12.779+07:00'

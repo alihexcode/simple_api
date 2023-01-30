@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    = render 'common/head_tags'
+
+    link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet"
+    link href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" rel="stylesheet"
+    link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    link href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css" rel="stylesheet"
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_importmap_tags
+
+  body
+    = render 'dashboard/common/sidebar'
+
+    .main-content
+      .container-fluid
+        = yield
+
+    script src="https://unpkg.com/feather-icons"
+
+    javascript:
+      feather.replace();

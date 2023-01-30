@@ -1,0 +1,10 @@
+= csrf_meta_tags
+= csp_meta_tag
+
+meta charset="utf-8"
+meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"
+
+title = yield(:title).present? ? yield(:title) : t('common.title')
+meta name="description" content="#{yield(:description).present? ? yield(:description) : t('common.description')}"
+
+link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet"

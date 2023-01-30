@@ -1,0 +1,32 @@
+en:
+  authentication_error: Unauthorized
+  file_exists_label: File already exists
+  mobile:
+    wrong_credentials: Wrong credentials
+    user_not_registered: User is not registered
+  errors:
+    unauthorized_error: Unauthorized
+    record_not_uniq_error: Record not uniq
+    out_of_range_error: field is out of range. Please enter a value between %{min} and %{max}
+    recipe_review:
+      rating:
+        inclusion: must be between 1 and 5
+      review:
+        too_long: can be at most 1000 characters
+      user_id:
+        taken: can only leave one review per recipe
+      user:
+        cant_review_own_recipe: can't review own recipe
+  email_login:
+    failed_to_sign_up: Failed to sign up, %{error_message}
+  time:
+    minute:
+      zero: minutes
+      one: minute
+      other: minutes
+    hour:
+      zero: hours
+      one: hour
+      other: hours
+  activerecord:
+    errors:
